@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ConsultaGastosActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/tipoFiltroSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <DatePicker
+            android:id="@+id/fechaInicioPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <DatePicker
+            android:id="@+id/fechaFinPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/valorMinEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Valor mínimo"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/valorMaxEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Valor máximo"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/aplicarFiltrosButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aplicar filtros" />
+
+        <TextView
+            android:id="@+id/totalGastosTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total de gastos: $" />
+
+    </LinearLayout>
+
+</ScrollView>

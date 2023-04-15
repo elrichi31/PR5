@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipos_gastos">
+        <item>Vivienda</item>
+        <item>Alimentación</item>
+        <item>Salud</item>
+        <item>Educación</item>
+        <item>Ropa</item>
+    </string-array>
+</resources>

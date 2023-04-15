@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+
+    <EditText
+        android:id="@+id/valorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Valor de gasto"
+        android:inputType="numberDecimal"/>
+
+    <Spinner
+        android:id="@+id/tipoSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/agregarGastoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar gasto" />
+
+    <Button
+        android:id="@+id/eliminarGastoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar gasto" />
+
+    <DatePicker
+        android:id="@+id/fechaPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="306dp" />
+
+    <ListView
+        android:id="@+id/listaGastos"
+        android:layout_width="match_parent"
+        android:layout_height="147dp" />
+
+    <Button
+        android:id="@+id/consultarGastosButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Consultar Gastos" />
+
+</LinearLayout>
