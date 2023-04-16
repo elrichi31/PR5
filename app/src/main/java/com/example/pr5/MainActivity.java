@@ -1,20 +1,21 @@
 package com.example.pr5;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtFecha;
@@ -24,10 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private Button agregarGastoButton;
     private Button eliminarGastoButton;
     private ListView listaGastos;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     private MiObjetoAdapter gastosAdapter;
     SingletonData singletonData = SingletonData.getInstance();
     ArrayList<Gasto> data = singletonData.getData();
+    private ArrayAdapter<String> adapterTipos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
         agregarGastoButton = findViewById(R.id.agregarGastoButton);
         eliminarGastoButton = findViewById(R.id.eliminarGastoButton);
         listaGastos = findViewById(R.id.listaGastos);
+        sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
 
         // Configurar el Spinner con los tipos de gastos
-        ArrayAdapter<CharSequence> tiposAdapter = ArrayAdapter.createFromResource(this,
-                R.array.tipos_gastos, android.R.layout.simple_spinner_item);
-        tiposAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tipoSpinner.setAdapter(tiposAdapter);
+        List<String> tiposDeGasto = sharedPreferencesManager.getTiposDeGasto();
+        adapterTipos= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposDeGasto);
+        adapterTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tipoSpinner.setAdapter(adapterTipos);
 
         // Configurar el adaptador y la lista de gastos
         gastosAdapter = new MiObjetoAdapter(this, data);
@@ -56,10 +61,18 @@ public class MainActivity extends AppCompatActivity {
         btnFecha.setOnClickListener(v -> muestraCalendario());
 
         Button consultarGastosButton = findViewById(R.id.consultarGastosButton);
+        Button configurarGastosButton = findViewById(R.id.configurarGastos);
         consultarGastosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ConsultaGastosActivity.class);
+                startActivity(intent);
+            }
+        });
+        configurarGastosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ConfigurarGastosActivity.class);
                 startActivity(intent);
             }
         });
@@ -90,11 +103,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String tipo = tipoSpinner.getSelectedItem().toString();
-
-        Gasto gasto = new Gasto(fecha, valor, tipo);
-        singletonData.addData(gasto);
-
-        gastosAdapter.notifyDataSetChanged();
+        if (verificarGasto(tipo, valor)) {
+            Gasto gasto = new Gasto(fecha, valor, tipo);
+            singletonData.addData(gasto);
+            valorEditText.setText("");
+            txtFecha.setText("");
+            gastosAdapter.notifyDataSetChanged();
+            Toast.makeText(MainActivity.this, "Gasto agregado", Toast.LENGTH_SHORT).show();
+        } else {
+            valorEditText.setError("Gasto excede el límite permitido");
+        }
     }
 
     private void eliminarGasto() {
@@ -103,4 +121,12 @@ public class MainActivity extends AppCompatActivity {
             gastosAdapter.notifyDataSetChanged();
         }
     }
+
+    private boolean verificarGasto(String tipoGasto, double montoGasto) {
+        double min = Double.parseDouble(sharedPreferencesManager.getLimiteGastoMin(tipoGasto));
+        double max = Double.parseDouble(sharedPreferencesManager.getLimiteGastoMax(tipoGasto));
+
+        return montoGasto >= min && montoGasto <= max;
+    }
 }
+
