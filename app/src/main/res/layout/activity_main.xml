@@ -5,22 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="2dp"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Selecione una fecha" />
+
+    <DatePicker
+        android:id="@+id/dpFecha"
+        android:layout_width="500dp"
+        android:layout_height="400dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtFecha"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="true"
+            android:onClick="muestraCalendario"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toEndOf="@+id/txtFecha"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_today" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Ingresa el valor del gasto" />
 
     <EditText
         android:id="@+id/valorEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:ems="10"
         android:hint="Valor de gasto"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Tipo de gasto" />
 
     <Spinner
         android:id="@+id/tipoSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="43dp" />
 
     <Button
         android:id="@+id/agregarGastoButton"
@@ -34,20 +91,19 @@
         android:layout_height="wrap_content"
         android:text="Eliminar gasto" />
 
-    <DatePicker
-        android:id="@+id/fechaPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="306dp" />
-
     <ListView
         android:id="@+id/listaGastos"
         android:layout_width="match_parent"
-        android:layout_height="147dp" />
+        android:layout_height="339dp" />
 
     <Button
         android:id="@+id/consultarGastosButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Consultar Gastos" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
