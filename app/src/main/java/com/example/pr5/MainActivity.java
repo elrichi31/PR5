@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Gasto> gastos = new ArrayList<>();
     private MiObjetoAdapter gastosAdapter;
+    SingletonData singletonData = SingletonData.getInstance();
+    ArrayList<Gasto> data = singletonData.getData();
 
 
 
@@ -49,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         eliminarGastoButton = findViewById(R.id.eliminarGastoButton);
         listaGastos = findViewById(R.id.listaGastos);
 
-
         // Configurar el Spinner con los tipos de gastos
         ArrayAdapter<CharSequence> tiposAdapter = ArrayAdapter.createFromResource(this,
                 R.array.tipos_gastos, android.R.layout.simple_spinner_item);
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         tipoSpinner.setAdapter(tiposAdapter);
 
         // Configurar el adaptador y la lista de gastos
-        gastosAdapter = new MiObjetoAdapter(this, gastos);
+        gastosAdapter = new MiObjetoAdapter(this, data);
         listaGastos.setAdapter(gastosAdapter);
 
         agregarGastoButton.setOnClickListener(v -> agregarGasto());
@@ -94,14 +96,15 @@ public class MainActivity extends AppCompatActivity {
         String tipo = tipoSpinner.getSelectedItem().toString();
 
         Gasto gasto = new Gasto(fecha, valor, tipo);
-        gastos.add(gasto);
+        singletonData.addData(gasto);
         gastosAdapter.notifyDataSetChanged();
 
     }
 
     private void eliminarGasto() {
-        if (!gastos.isEmpty()) {
-            gastos.remove(gastos.size() - 1);
+        if (!data.isEmpty()) {
+            //gastos.remove(gastos.size() - 1);
+            singletonData.removeData(data.get(data.size() - 1));
             gastosAdapter.notifyDataSetChanged();
         }
     }
