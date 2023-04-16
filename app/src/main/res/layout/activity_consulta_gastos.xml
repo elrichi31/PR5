@@ -101,19 +101,25 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/valorMinEditText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Valor mínimo"
-            android:inputType="numberDecimal" />
+            android:layout_height="55dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/valorMaxEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Valor máximo"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/valorMinEditText"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:hint="Valor mínimo"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/valorMaxEditText"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:hint="Valor máximo"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/aplicarFiltrosButton"
@@ -124,7 +130,7 @@
         <ListView
             android:id="@+id/filtroGastos"
             android:layout_width="match_parent"
-            android:layout_height="322dp" />
+            android:layout_height="379dp" />
 
         <Space
             android:layout_width="match_parent"
