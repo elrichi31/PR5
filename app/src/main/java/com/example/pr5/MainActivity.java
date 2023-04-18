@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txtFecha = findViewById(R.id.txtFecha);
@@ -45,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
         eliminarGastoButton = findViewById(R.id.eliminarGastoButton);
         listaGastos = findViewById(R.id.listaGastos);
         sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
+
+        sharedPreferencesManager.setLimiteGastoMin("Educación", "0");
+        sharedPreferencesManager.setLimiteGastoMin("Vivienda", "0");
+        sharedPreferencesManager.setLimiteGastoMin("Alimentación", "0");
+        sharedPreferencesManager.setLimiteGastoMin("Salud", "0");
+        sharedPreferencesManager.setLimiteGastoMin("Ropa", "0");
+
+        sharedPreferencesManager.setLimiteGastoMax("Educación", "300");
+        sharedPreferencesManager.setLimiteGastoMax("Vivienda", "300");
+        sharedPreferencesManager.setLimiteGastoMax("Alimentación", "300");
+        sharedPreferencesManager.setLimiteGastoMax("Salud", "300");
+        sharedPreferencesManager.setLimiteGastoMax("Ropa", "300");
 
         // Configurar el Spinner con los tipos de gastos
         List<String> tiposDeGasto = sharedPreferencesManager.getTiposDeGasto();
@@ -116,9 +131,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void eliminarGasto() {
+        String fecha = txtFecha.getText().toString();
+
+        double valor;
+        try {
+            valor = Double.parseDouble(valorEditText.getText().toString());
+        } catch (NumberFormatException e) {
+            // Valor no válido, mostrar mensaje de error y detener la ejecución
+            valorEditText.setError("Valor inválido");
+            return;
+        }
+        String tipo = tipoSpinner.getSelectedItem().toString();
+
+
         if (!data.isEmpty()) {
-            singletonData.removeData(data.get(data.size() - 1));
+            singletonData.removeData(fecha, valor, tipo);
             gastosAdapter.notifyDataSetChanged();
+            Toast.makeText(MainActivity.this, "Gasto eliminado", Toast.LENGTH_SHORT).show();
+
         }
     }
 

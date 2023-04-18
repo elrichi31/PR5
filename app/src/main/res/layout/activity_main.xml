@@ -94,7 +94,7 @@
     <ListView
         android:id="@+id/listaGastos"
         android:layout_width="match_parent"
-        android:layout_height="339dp" />
+        android:layout_height="301dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

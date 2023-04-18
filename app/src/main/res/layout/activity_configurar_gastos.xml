@@ -37,6 +37,12 @@
                 android:text="Agregar" />
 
             <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Configurar rango de un tipo de gasto" />
+
+            <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
